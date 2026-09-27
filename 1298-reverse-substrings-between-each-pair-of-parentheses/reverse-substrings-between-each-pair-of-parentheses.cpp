@@ -1,34 +1,33 @@
 class Solution {
 public:
-    string reverseString(string& s) {
-        reverse(s.begin(), s.end());
-        return s;
-    }
-
-    string reverseSubstring(string& s, int n, int firstIndex, int& lastIndex) {
-        string toReturn;
-        for (int i = firstIndex; i < n; ++i) {
-            if (s[i] == ')') {
-                lastIndex = i;
-                return reverseString(toReturn);
-            }
-
+    string reverseParentheses(string s) {
+        int n = s.size();
+        vector<int> pairVector(n, -1);
+        stack<int> pairStack;
+        for (int i = 0; i < n; ++i) {
             if (s[i] == '(') {
-                int closingParanthesisIndex = -1;
-                toReturn += reverseSubstring(s, n, i + 1, closingParanthesisIndex);
-                i = closingParanthesisIndex;
+                pairStack.push(i);
                 continue;
             }
 
-            toReturn += s[i];
+            if (s[i] == ')') {
+                int match = pairStack.top();
+                pairVector[i] = match;
+                pairVector[match] = i;
+                pairStack.pop();
+            }
         }
 
-        return toReturn;
-    }
+        string result;
+        for (int i = 0, direction = 1; i < n; i += direction) {
+            if (s[i] == '(' || s[i] == ')') {
+                i = pairVector[i];
+                direction = -direction;
+            } else {
+                result += s[i];
+            }
+        }
 
-    string reverseParentheses(string s) {
-        int dummy = 0;
-        const int n = s.size();
-        return reverseSubstring(s, n, 0, dummy);
+        return result;
     }
 };
