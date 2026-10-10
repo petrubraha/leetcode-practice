@@ -6,7 +6,7 @@ public:
         for (int i = 0; i < n; ++i) {
             if (s[i] == '(') {
                 owned += 2;
-                if (owned % 2 == 1) {
+                if (owned & 1) {
                     owned -= 1;
                     fixes += 1;
                 }
