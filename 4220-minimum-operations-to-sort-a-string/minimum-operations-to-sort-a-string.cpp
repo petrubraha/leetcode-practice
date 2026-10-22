@@ -26,7 +26,8 @@ public:
             return 1;
         }
         for (int i = 1; i < n - 1; ++i) {
-            if (s[i] == mn || s[i] == mx) {
+            char chr = s[i];
+            if (chr == mn || chr == mx) {
                 return 2;
             }
         }
