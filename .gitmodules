@@ -1,0 +1,6 @@
+[submodule "extensions/leetsync"]
+	path = extensions/leetsync
+	url = https://github.com/LeetSync/LeetSync.git
+[submodule "extensions/leetsrs"]
+	path = extensions/leetsrs
+	url = https://github.com/mattcdrake/leetsrs.git
