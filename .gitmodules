@@ -1,0 +1,9 @@
+[submodule "neetcode-submissions"]
+	path = neetcode-submissions
+	url = https://github.com/petrubraha/neetcode-submissions.git
+[submodule "LeetSync"]
+	path = LeetSync
+	url = https://github.com/LeetSync/LeetSync.git
+[submodule "LeetSRS"]
+	path = LeetSRS
+	url = https://github.com/mattcdrake/LeetSRS.git
