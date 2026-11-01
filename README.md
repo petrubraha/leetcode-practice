@@ -13,11 +13,9 @@ Work through the [NeetCode 150](https://neetcode.io/practice/practice/neetcode15
 
 These are included as git submodules at the top level of this repository:
 
-| Submodule | What it does |
-| --- | --- |
-| [LeetSync](https://github.com/LeetSync/LeetSync) (`LeetSync/`) | Browser extension that pushes every accepted LeetCode submission to this repository (one folder per problem, with its `README.md`). |
-| [LeetSRS](https://github.com/mattcdrake/LeetSRS) (`LeetSRS/`) | Browser extension for spaced repetition on LeetCode: I rate how well I remembered each problem, and it schedules the next review. It also tracks progress on the NeetCode 150 roadmap. |
-| [neetcode-submissions](https://github.com/petrubraha/neetcode-submissions) (`neetcode-submissions/`) | My NeetCode solutions, pushed automatically by NeetCode's GitHub Sync. |
+- [LeetSync](https://github.com/LeetSync/LeetSync): browser extension that pushes every accepted LeetCode submission to this repository (one folder per problem, with its `README.md`).
+- [LeetSRS](https://github.com/mattcdrake/LeetSRS): browser extension for spaced repetition on LeetCode. I rate how well I remembered each problem, and it schedules the next review. It also tracks progress on the NeetCode 150 roadmap.
+- [neetcode-submissions](https://github.com/petrubraha/neetcode-submissions): my NeetCode solutions, pushed automatically by NeetCode's GitHub Sync.
 
 ## Daily workflow
 
