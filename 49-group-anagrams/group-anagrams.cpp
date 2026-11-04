@@ -3,10 +3,11 @@ public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         int n = strs.size();
         vector<vector<string>> result;
-        map<array<char, 26>, int> anagramToIdx;
+        unordered_map<string, int> anagramToIdx;
         result.reserve(n);
+        anagramToIdx.reserve(n);
         for (const string& str : strs) {
-            array<char, 26> anagram{};
+            string anagram(26, 0);
             for (char chr : str) {
                 anagram[chr - 'a']++;
             }
