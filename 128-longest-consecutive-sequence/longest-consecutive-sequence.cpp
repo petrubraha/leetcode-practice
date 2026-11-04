@@ -1,18 +1,20 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        int len = 0;
-        unordered_map<int, int> numToLen;
+        unordered_map<int, int> numToCount;
+        int maxLen = 0;
         for (int num : nums) {
-            if (numToLen[num] != 0) {
+            if (numToCount[num] != 0) {
                 continue;
             }
-            int value = 1 + numToLen[num - 1] + numToLen[num + 1];
-            numToLen[num] = value;
-            numToLen[num - numToLen[num - 1]] = value;
-            numToLen[num + numToLen[num + 1]] = value;
-            len = max(len, value);
+            int prev = numToCount[num - 1], next = numToCount[num + 1];
+            int value = 1 + prev + next;
+            numToCount[num] =
+                numToCount[num - prev] =
+                numToCount[num + next] =
+                value;
+            maxLen = max(maxLen, value);
         }
-        return len;
+        return maxLen;
     }
 };
