@@ -1,38 +1,38 @@
 class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
-        int n = tokens.size();
-        int num1, num2;
         stack<int> stk;
-        for (const string& tok : tokens) {
-            char chr = tok[0];
-            if (tok.size() > 1) {
-                stk.push(stoi(tok));
+        int n = tokens.size(), last, frst;
+        for (int i = 0; i < n; ++i) {
+            string& str = tokens[i];
+            if (str.size() > 1) {
+                stk.push((stoi(str)));
                 continue;
             }
+            char chr = str[0];
             switch (chr) {
                 case '+':
-                    num1 = stk.top(); stk.pop();
-                    num2 = stk.top(); stk.pop();
-                    stk.push(num2 + num1);
+                    last = stk.top(); stk.pop();
+                    frst = stk.top(); stk.pop();
+                    stk.push(frst + last);
                     break;
                 case '-':
-                    num1 = stk.top(); stk.pop();
-                    num2 = stk.top(); stk.pop();
-                    stk.push(num2 - num1);
+                    last = stk.top(); stk.pop();
+                    frst = stk.top(); stk.pop();
+                    stk.push(frst - last);
                     break;
                 case '*':
-                    num1 = stk.top(); stk.pop();
-                    num2 = stk.top(); stk.pop();
-                    stk.push(num2 * num1);
+                    last = stk.top(); stk.pop();
+                    frst = stk.top(); stk.pop();
+                    stk.push(frst * last);
                     break;
                 case '/':
-                    num1 = stk.top(); stk.pop();
-                    num2 = stk.top(); stk.pop();
-                    stk.push(num2 / num1);
+                    last = stk.top(); stk.pop();
+                    frst = stk.top(); stk.pop();
+                    stk.push(frst / last);
                     break;
                 default:
-                    stk.push(stoi(tok));
+                    stk.push((stoi(str)));
                     break;
             }
         }
