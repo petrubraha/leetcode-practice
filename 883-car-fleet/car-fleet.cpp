@@ -12,13 +12,16 @@ public:
         }
         sort(position.begin(), position.end());
         stack<double> time;
-        time.push(getTime(target, position[n - 1], spd[position[n - 1]]));
+        int fleetCount = 1;
+        double fleetAheadTime =
+            getTime(target, position[n - 1], spd[position[n - 1]]);
         for (int i = n - 2; i >= 0; --i) {
-            double tme = getTime(target, position[i], spd[position[i]]);
-            if (tme > time.top()) {
-                time.push(tme);
+            double time = getTime(target, position[i], spd[position[i]]);
+            if (time > fleetAheadTime) {
+                fleetAheadTime = time;
+                fleetCount++;
             }
         }
-        return time.size();
+        return fleetCount;
     }
 };
