@@ -11,15 +11,15 @@ public:
             spd[position[i]] = speed[i];
         }
         sort(position.begin(), position.end());
-        stack<double> time;
         int fleetCount = 1;
-        double fleetAheadTime =
-            getTime(target, position[n - 1], spd[position[n - 1]]);
+        double fleetTime = getTime(target, position[n - 1], spd[position[n - 1]]);
         for (int i = n - 2; i >= 0; --i) {
             double time = getTime(target, position[i], spd[position[i]]);
-            if (time > fleetAheadTime) {
-                fleetAheadTime = time;
+            if (time > fleetTime) {
                 fleetCount++;
+                fleetTime = time;
+            } else {
+                fleetTime = max(fleetTime, time);
             }
         }
         return fleetCount;
