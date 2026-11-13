@@ -1,41 +1,28 @@
 class Solution {
+    bool isOperation(string& str) {
+        return str == "+" || str == "-" || str == "*" || str == "/";
+    }
+
 public:
     int evalRPN(vector<string>& tokens) {
-        stack<int> stk;
-        int n = tokens.size(), last, frst;
-        for (int i = 0; i < n; ++i) {
-            string& str = tokens[i];
-            if (str.size() > 1) {
-                stk.push((stoi(str)));
+        stack<int> operands;
+        for (string& tok : tokens) {
+            if (!isOperation(tok)) {
+                operands.push(stoi(tok));
                 continue;
             }
-            char chr = str[0];
-            switch (chr) {
-                case '+':
-                    last = stk.top(); stk.pop();
-                    frst = stk.top(); stk.pop();
-                    stk.push(frst + last);
-                    break;
-                case '-':
-                    last = stk.top(); stk.pop();
-                    frst = stk.top(); stk.pop();
-                    stk.push(frst - last);
-                    break;
-                case '*':
-                    last = stk.top(); stk.pop();
-                    frst = stk.top(); stk.pop();
-                    stk.push(frst * last);
-                    break;
-                case '/':
-                    last = stk.top(); stk.pop();
-                    frst = stk.top(); stk.pop();
-                    stk.push(frst / last);
-                    break;
-                default:
-                    stk.push((stoi(str)));
-                    break;
+            int last = operands.top(); operands.pop();
+            int frst = operands.top(); operands.pop();
+            if (tok == "+") {
+                operands.push(frst + last);
+            } else if (tok == "-") {
+                operands.push(frst - last);
+            } else if (tok == "*") {
+                operands.push(frst * last);
+            } else if (tok == "/") {
+                operands.push(frst / last);
             }
         }
-        return stk.top();
+        return operands.top();
     }
 };
