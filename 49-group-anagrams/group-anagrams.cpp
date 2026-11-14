@@ -8,12 +8,11 @@ public:
             for (char chr : str) {
                 anagram[chr - 'a']++;
             }
-            auto it = anagramToIndex.find(anagram);
-            if (it != anagramToIndex.end()) {
-                result[it->second].push_back(str);
-            } else {
-                anagramToIndex[anagram] = result.size();
+            auto ans = anagramToIndex.try_emplace(anagram, result.size());
+            if (ans.second) {
                 result.emplace_back(1, str);
+            } else {
+                result[ans.first->second].push_back(str);
             }
         }
         return result;
