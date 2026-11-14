@@ -1,12 +1,12 @@
 class Solution {
-    char getBracket(char bracket) {
+    char getBracketMatch(char bracket) {
         switch (bracket) {
             case ')':
                 return '(';
-            case '}':
-                return '{';
             case ']':
                 return '[';
+            case '}':
+                return '{';
             default:
                 return bracket;
         }
@@ -14,16 +14,15 @@ class Solution {
 
 public:
     bool isValid(string s) {
-        stack<char> stk;
+        stack<int> stk;
         for (char chr : s) {
-            char bracket = getBracket(chr);
-            if (bracket == chr) {
+            char bracket = getBracketMatch(chr);
+            if (chr == bracket) {
                 stk.push(chr);
                 continue;
             }
-            // closed bracket confirmed.
+            // closed bracket.
             if (stk.empty()) {
-                // no bracket was opened before.
                 return false;
             }
             if (stk.top() != bracket) {
@@ -31,6 +30,6 @@ public:
             }
             stk.pop();
         }
-        return stk.empty();        
+        return stk.empty();
     }
 };
