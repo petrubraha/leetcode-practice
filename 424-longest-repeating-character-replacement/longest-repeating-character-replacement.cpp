@@ -9,14 +9,16 @@ class Solution {
 
 public:
     int characterReplacement(string s, int k) {
-        int seen[26] = {};
-        int n = s.size(), l = 0, r = 0, maxLen = 0;
-        seen[s[r] - 'A']++;
+        int maxLen = 0;
+        int n = s.size(), l = 0, r = 0;
+        int seen[256] = {};
+        seen[s[0] - 'A']++;
         while (r < n) {
-            int windowSize = r - l + 1, f = getMaxFreq(seen);
-            if (windowSize - f <= k) {
+            int windowSize = r - l + 1;
+            if (windowSize - getMaxFreq(seen) <= k) {
                 maxLen = max(maxLen, windowSize);
-                if (++r != n) {
+                r++;
+                if (r < n) {
                     seen[s[r] - 'A']++;
                 }
             } else {
