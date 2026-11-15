@@ -1,16 +1,17 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int n = s.size(), maxLen = 0, l = 0;
+        int maxLen = 0;
+        int n = s.size(), l = 0, r = 0;
         int seen[256] = {};
-        for (int i = 0; i < n; ++i) {
-            int index = seen[s[i]];
-            if (index) {
-                // not + 1, since we store 1-based indexes.
-                l = max(l, index);
+        while (r < n) {
+            int duplicateIndex = seen[s[r]];
+            if (duplicateIndex > l) {
+                l = duplicateIndex;
             }
-            maxLen = max(maxLen, i + 1 - l);
-            seen[s[i]] = i + 1;
+            maxLen = max(maxLen, r - l + 1);
+            seen[s[r]] = r + 1;
+            r++;
         }
         return maxLen;
     }
