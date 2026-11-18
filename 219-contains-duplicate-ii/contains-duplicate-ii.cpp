@@ -5,16 +5,16 @@ public:
             return false;
         }
         int n = nums.size();
-        unordered_map<int, int> seen;
+        unordered_set<int> seen;
         seen.reserve(n);
         for (int i = 0; i < n; ++i) {
-            auto result = seen.try_emplace(nums[i], i);
-            if (!result.second) {
-                if (i - result.first->second <= k) {
-                    return true;
-                }
-                result.first->second = i;
+            if (i > k) {
+                seen.erase(nums[i - k - 1]);
             }
+            if (seen.count(nums[i])) {
+                return true;
+            }
+            seen.insert(nums[i]);
         }
         return false;
     }
