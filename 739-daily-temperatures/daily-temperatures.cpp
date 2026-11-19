@@ -9,16 +9,11 @@ public:
                 numbers.pop();
                 indexes.pop();
             }
-            if (!numbers.empty() && temperatures[i] < numbers.top()) {
+            if (!numbers.empty()) {
                 result[i] = indexes.top() - i;
-                numbers.push(temperatures[i]);
-                indexes.push(i);
-                continue;
             }
-            if (numbers.empty()) {
-                numbers.push(temperatures[i]);
-                indexes.push(i);
-            }
+            numbers.push(temperatures[i]);
+            indexes.push(i);
         }
         return result;
     }
