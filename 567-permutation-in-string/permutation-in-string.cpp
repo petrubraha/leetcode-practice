@@ -1,7 +1,7 @@
 class Solution {
-    bool isFreqEqual(short* freqS1, short* freqS2) {
+    bool isFreqEqual(int* freq1, int* freq2) {
         for (int i = 0; i < 26; ++i) {
-            if (freqS1[i] != freqS2[i]) {
+            if (freq1[i] != freq2[i]) {
                 return false;
             }
         }
@@ -10,22 +10,22 @@ class Solution {
 
 public:
     bool checkInclusion(string s1, string s2) {
-        int nS1 = s1.size(), nS2 = s2.size();
-        if (nS1 > nS2) {
+        int s1N = s1.size(), s2N = s2.size();
+        if (s1N > s2N) {
             return false;
         }
-        short freqS1[26] = {}, freqS2[26] = {};
-        for (int i = 0; i < nS1; ++i) {
-            freqS1[s1[i] - 'a']++;
-            freqS2[s2[i] - 'a']++;
+        int s1Freq[26] = {}, s2Freq[26] = {};
+        for (int i = 0; i < s1N; ++i) {
+            s1Freq[s1[i] - 'a']++;
+            s2Freq[s2[i] - 'a']++;
         }
-        if (isFreqEqual(freqS1, freqS2)) {
+        if (isFreqEqual(s1Freq, s2Freq)) {
             return true;
         }
-        for (int l = 1; l + nS1 <= nS2; ++l) {
-            freqS2[s2[l - 1] - 'a']--;
-            freqS2[s2[l - 1 + nS1] - 'a']++;
-            if (isFreqEqual(freqS1, freqS2)) {
+        for (int l = 1; l + s1N <= s2N; ++l) {
+            s2Freq[s2[l - 1] - 'a']--;
+            s2Freq[s2[l + s1N - 1] - 'a']++;
+            if (isFreqEqual(s1Freq, s2Freq)) {
                 return true;
             }
         }
