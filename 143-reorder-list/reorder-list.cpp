@@ -10,26 +10,52 @@
  */
 
 class Solution {
+    int getListSize(ListNode* head) {
+        int n = 0;
+        while (head) {
+            n++;
+            head = head->next;
+        }
+        return n;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        while(head) {
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+
+    void mergeLists(ListNode* head1, ListNode* head2) {
+        while (head1 && head2) {
+            ListNode* next1 = head1->next, *next2 = head2->next;
+            head1->next = head2;
+            head2->next = next1;
+            head1 = next1;
+            head2 = next2;
+        }
+        if (head1) {
+            head1->next = nullptr;
+        } else if (head2) {
+            head2->next = nullptr;
+        }
+    }
+
 public:
     void reorderList(ListNode* head) {
-        ListNode* copy = head;
-        int n = 0;
-        while (copy) {
-            n++;
-            copy = copy->next;
-        }
-        vector<ListNode*> arr(n, nullptr);
-        copy = head;
+        int n = getListSize(head);
+        // get the first node of the second list.
         int i = 0;
-        while (copy) {
-            arr[i] = copy;
+        ListNode* copy = head;
+        while (i < n / 2) {
             i++;
             copy = copy->next;
         }
-        for (i = 0; i < n / 2; ++i) {
-            arr[i]->next = arr[n - 1 - i];
-            arr[n - 1 - i]->next = arr[i + 1];
-        }
-        arr[i]->next = nullptr;
+        ListNode* prev = reverseList(copy);
+        mergeLists(head, prev);
     }
 };
