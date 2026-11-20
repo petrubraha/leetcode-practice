@@ -18,16 +18,23 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
         unordered_map<Node*, Node*> seen;
+        seen[nullptr] = nullptr;
         Node *iter = head;
         while (iter) {
-            seen[iter] = new Node(iter->val);
-            iter = iter->next;
-        }
-        iter = head;
-        while (iter) {
-            Node *other = seen[iter];
-            other->next = seen[iter->next];
-            other->random = seen[iter->random];
+            auto [iterIt, iterInserted] = seen.try_emplace(iter, nullptr);
+            if (iterInserted) {
+                iterIt->second = new Node(iter->val);
+            }
+            auto [nextIt, nextInserted] = seen.try_emplace(iter->next, nullptr);
+            if (nextInserted) {
+                nextIt->second = new Node(iter->next->val);
+            }
+            auto [randIt, randInserted] = seen.try_emplace(iter->random, nullptr);
+            if (randInserted) {
+                randIt->second = new Node(iter->random->val);
+            }
+            iterIt->second->next = nextIt->second;
+            iterIt->second->random = randIt->second;
             iter = iter->next;
         }
         return seen[head];
