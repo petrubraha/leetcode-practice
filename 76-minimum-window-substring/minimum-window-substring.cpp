@@ -1,41 +1,38 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int sN = s.size(), tN = t.size();
-        unordered_map<char, int> tCounts;
-        tCounts.reserve(tN);
+        int m = s.size(), n = t.size();
+        if (n > m) {
+            return "";
+        }
+        unordered_map<char, unsigned short> sCounts, tCounts;
+        sCounts.reserve(2 * 26);
+        tCounts.reserve(2 * 26);
         for (char chr : t) {
             tCounts[chr]++;
         }
-        unordered_map<char, int> wCounts;
-        wCounts.reserve(tN);
-        int lMin = 0, lenMin = INT_MAX;
+        int wL = 0, wR = m + 1;
         int have = 0, need = tCounts.size();
         int l = 0;
-        for (int r = 0; r < sN; ++r) {
-            char chr = s[r];
-            auto it = tCounts.find(chr);
-            int wChrCount = ++wCounts[chr];
-            if (it != tCounts.end() && wChrCount == it->second) {
+        for (int r = 0; r < m; ++r) {
+            int sCount = ++sCounts[s[r]];
+            if (auto tIt = tCounts.find(s[r]); tIt != tCounts.end() && sCount == tIt->second) {
                 have++;
             }
             while (have == need) {
-                // we found a valid substring, save it.
-                int size = r - l + 1;
-                if (size < lenMin) {
-                    lenMin = size;
-                    lMin = l;
+                // save the solution found.
+                if (r - l < wR - wL) {
+                    wL = l;
+                    wR = r;
                 }
-                // shrink the substring if possible.
-                char chracter = s[l];
-                auto it = tCounts.find(chracter);
-                int wChrNewCount = --wCounts[chracter];
-                if (it != tCounts.end() && wChrNewCount < it->second) {
+                // try to shrink it.
+                sCount = --sCounts[s[l]];
+                if (auto tIt = tCounts.find(s[l]); tIt != tCounts.end() && sCount < tIt->second) {
                     have--;
                 }
                 l++;
             }
         }
-        return lenMin == INT_MAX ? "" : s.substr(lMin, lenMin);
+        return wR == m + 1 ? "" : s.substr(wL, wR - wL + 1);
     }
 };
