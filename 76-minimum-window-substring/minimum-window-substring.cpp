@@ -5,30 +5,26 @@ public:
         if (n > m) {
             return "";
         }
-        unordered_map<char, unsigned short> sCounts, tCounts;
-        sCounts.reserve(2 * 26);
+        unordered_map<char, int> tCounts;
         tCounts.reserve(2 * 26);
         for (char chr : t) {
             tCounts[chr]++;
         }
         int wL = 0, wR = m + 1;
-        int have = 0, need = tCounts.size();
-        int l = 0;
-        for (int r = 0; r < m; ++r) {
-            int sCount = ++sCounts[s[r]];
-            if (auto tIt = tCounts.find(s[r]); tIt != tCounts.end() && sCount == tIt->second) {
-                have++;
+        int needed = tCounts.size();
+        for (int l = 0, r = 0; r < m; ++r) {
+            if (auto tIt = tCounts.find(s[r]); tIt != tCounts.end() && --tIt->second == 0) {
+                needed--;
             }
-            while (have == need) {
+            while (needed == 0) {
                 // save the solution found.
                 if (r - l < wR - wL) {
                     wL = l;
                     wR = r;
                 }
                 // try to shrink it.
-                sCount = --sCounts[s[l]];
-                if (auto tIt = tCounts.find(s[l]); tIt != tCounts.end() && sCount < tIt->second) {
-                    have--;
+                if (auto tIt = tCounts.find(s[l]); tIt != tCounts.end() && ++tIt->second > 0) {
+                    needed++;
                 }
                 l++;
             }
