@@ -1,7 +1,8 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        int values[127] = {};
+        unordered_map<char, int> values;
+        values.reserve(7);
         values['I'] = 1;
         values['V'] = 5;
         values['X'] = 10;
