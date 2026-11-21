@@ -4,12 +4,17 @@ public:
         if (x < 0) {
             return false;
         }
-        unsigned int copy = x, palindrome = 0;
-        while (copy) {
-            palindrome *= 10;
-            palindrome += copy % 10;
-            copy /= 10;
+        size_t n = 1, u = x;
+        while (n * 10 <= u) {
+            n *= 10;
         }
-        return x == palindrome;
+        while (u) {
+            size_t first = u / n, last = u % 10;
+            if (first != last) return false;
+            u -= first * n;
+            u /= 10;
+            n /= 100;
+        }
+        return true;
     }
 };
