@@ -1,23 +1,21 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int n = nums.size() - 1;
-        int bits = 32;
-        int result = 0;
+        int n = nums.size() - 1, bits = 32, result = 0;
         for (int i = 0; i < bits; ++i) {
             int mask = 1 << i;
-            int observed = 0, count = 0;
+            int expectedSetBits = 0, actualSetBits = 0;
             for (int num = 1; num < n + 1; ++num) {
                 if (mask & num) {
-                    count++;
+                    expectedSetBits++;
                 }
             }
-            for (int j = 0; j < n + 1; ++j) {
-                if (mask & nums[j]) {
-                    observed++;
+            for (int i = 0; i < n + 1; ++i) {
+                if (mask & nums[i]) {
+                    actualSetBits++;
                 }
             }
-            if (observed > count) {
+            if (actualSetBits > expectedSetBits) {
                 result |= mask;
             }
         }
