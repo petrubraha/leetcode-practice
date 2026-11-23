@@ -1,20 +1,20 @@
 class Solution {
 public:
     int minimumPartition(string s, int k) {
-        int count = 0;
+        int result = 0;
         long long num = 0;
         for (char c : s) {
-            int digit = c - '0';
+            long long digit = c - '0';
             if (digit > k) {
                 return -1;
             }
             if (num * 10 + digit > k) {
-                count++;
+                result++;
                 num = 0;
             }
-            num *= 10;
-            num += digit;
+            num = num * 10 + digit;
         }
-        return count + 1;
+        result += num > k ? 2 : 1;
+        return result;        
     }
 };
