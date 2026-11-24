@@ -31,30 +31,17 @@ What happens behind the workflow, from the one-time GitHub sign-ins to the commi
 ```mermaid
 sequenceDiagram
     actor Me
-    participant SRS as LeetSRS extension
     participant LC as LeetCode
     participant Sync as LeetSync extension
     participant GH as GitHub
-    participant NC as NeetCode
 
-    Note over Me,NC: One-time setup: sign in to GitHub from both extensions and connect GitHub on NeetCode
-
-    Me->>SRS: Check which reviews are due today
-    SRS-->>Me: Due problems
+    Note over Me,GH: One-time setup: sign in to GitHub from the LeetSync extension
 
     Me->>LC: Write the solution and submit
     LC-->>Me: Accepted
 
-    par LeetSRS tracks the review
-        Me->>SRS: Rate how well I remembered the problem
-        SRS->>GH: Back up schedule to a Gist
-    and LeetSync saves the code
-        Sync->>LC: Read the accepted submission
-        Sync->>GH: Commit the solution to leetcode-practice
-    end
-
-    Me->>NC: Resubmit the same solution
-    NC->>GH: Commit it to neetcode-submissions
+    Sync->>LC: Read the accepted submission
+    Sync->>GH: Commit the solution to leetcode-practice
 ```
 
 ## Cloning
