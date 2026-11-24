@@ -24,6 +24,26 @@ These are included as git submodules at the top level of this repository:
 3. **Solve on LeetCode.** Submit the new problem and the due reviews on LeetCode. LeetSync commits each accepted solution here.
 4. **Resubmit on NeetCode.** Submit the same solution on NeetCode so its NeetCode 150 progress tracker stays in sync. NeetCode's GitHub Sync commits it to `neetcode-submissions`.
 
+## Infrastructure
+
+What happens behind the workflow, from the one-time GitHub sign-ins to the commits each submission produces:
+
+```mermaid
+sequenceDiagram
+    actor Me
+    participant LC as LeetCode
+    participant Sync as LeetSync extension
+    participant GH as GitHub
+
+    Note over Me,GH: One-time setup: sign in to GitHub from the LeetSync extension
+
+    Me->>LC: Write the solution and submit
+    LC-->>Me: Accepted
+
+    Sync->>LC: Read the accepted submission
+    Sync->>GH: Commit the solution to leetcode-practice
+```
+
 ## Cloning
 
 ```sh
