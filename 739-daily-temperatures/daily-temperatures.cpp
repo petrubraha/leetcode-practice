@@ -2,8 +2,8 @@ class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         int n = temperatures.size();
-        stack<int> numbers, indexes;
         vector<int> result(n, 0);
+        stack<int> numbers, indexes;
         for (int i = n - 1; i >= 0; --i) {
             while (!numbers.empty() && temperatures[i] >= numbers.top()) {
                 numbers.pop();
